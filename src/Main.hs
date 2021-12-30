@@ -20,6 +20,22 @@ import           Params
 import           QuoteData
 import           StatReport
 
+
+main :: IO ()
+main = cmdLineParser >>= work
+
+work :: Params -> IO ()
+work params = do
+  readQuotes fname' >>= generateReports params
+  where fname' = fname params
+
+readQuotes :: FilePath -> IO [QuoteData]
+readQuotes fpath = do
+  csvData <- BL.readFile fpath
+  case decodeByName csvData of
+    Left  err         -> error err
+    Right (_, quotes) -> pure (toList quotes)
+
 generateReports :: (Functor t, Foldable t) => Params -> t QuoteData -> IO ()
 generateReports Params {..} quotes = do
   unless silent $ putStr textRpt
@@ -36,20 +52,3 @@ generateReports Params {..} quotes = do
 
   saveHtml Nothing  _    = pure ()
   saveHtml (Just f) html = BL.writeFile f html
-
-work :: Params -> IO ()
-work params = do
-  csvData <- BL.readFile (fname params)
-  case decodeByName csvData of
-    Left  err         -> putStrLn err
-    Right (_, quotes) -> generateReports params quotes
-
-main :: IO ()
-main = cmdLineParser >>= work
-
-readQuotes :: FilePath -> IO [QuoteData]
-readQuotes fpath = do
-  csvData <- BL.readFile fpath
-  case decodeByName csvData of
-    Left  err         -> error err
-    Right (_, quotes) -> pure (toList quotes)
