@@ -22,7 +22,6 @@ import           StatReport
 viaFmt :: Buildable a => a -> Html
 viaFmt = text . pretty
 
-
 colStats :: Colonnade Headed StatEntry Html
 colStats = mconcat
   [ headed "Quote Field"          (i . string . show . qfield)
@@ -41,7 +40,6 @@ colData = mconcat
   , headed "Low"    (viaFmt . showPrice . low)
   , headed "Volume" (viaFmt . volume)
   ]
-
 
 htmlReport
   :: (Functor t, Foldable t)
