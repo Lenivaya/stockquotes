@@ -80,7 +80,6 @@ instance Buildable StatEntry where
 showPrice :: Double -> Builder
 showPrice = fixedF decimalPlacesFloating
 
-
 textReport :: [StatEntry] -> String
 textReport = ascii colStats
  where
