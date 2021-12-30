@@ -2,7 +2,6 @@
 
 Study project of generating stock quotes statistics based on given csv files with such an structure
 
-| --- | ----- | ------ | ---- | ---- | --- |
 | day | close | volume | open | high | low |
 | --- | ----- | ------ | ---- | ---- | --- |
 
