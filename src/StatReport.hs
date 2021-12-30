@@ -53,7 +53,7 @@ statInfo quotes = fmap qFieldStatInfo [minBound .. maxBound]
   decimalPlacesByQField _      = decimalPlacesFloating
 
   qFieldStatInfo qfield =
-    let get                         = field2fun qfield
+    let get                         = fieldValue qfield
         (mn, mx, daysBetweenMinMax) = computeMinMaxDays get quotes
         decPlaces                   = decimalPlacesByQField qfield
         meanVal = StatValue decimalPlacesFloating (mean $ fmap get quotes)
