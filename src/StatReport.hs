@@ -35,15 +35,14 @@ data StatEntry = StatEntry
 mean :: (Fractional a, Foldable t) => t a -> a
 mean xs = sum xs / fromIntegral (length xs)
 
-
 computeMinMaxDays
   :: (Ord a, Foldable t) => (QuoteData -> a) -> t QuoteData -> (a, a, Int)
-computeMinMaxDays get quotes = (get minQ, get maxQ, days)
+computeMinMaxDays get quotes = (get minQuote, get maxQuote, days)
  where
-  cmp  = comparing get
-  minQ = minimumBy cmp quotes
-  maxQ = maximumBy cmp quotes
-  days = fromIntegral $ abs $ diffDays (day minQ) (day maxQ)
+  cmp      = comparing get
+  minQuote = minimumBy cmp quotes
+  maxQuote = maximumBy cmp quotes
+  days     = fromIntegral $ abs $ diffDays (day minQuote) (day maxQuote)
 
 
 statInfo :: (Functor t, Foldable t) => t QuoteData -> [StatEntry]
